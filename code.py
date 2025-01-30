@@ -25,7 +25,7 @@ def get_metar():
         'ids': 'cyyz',
         'format': 'raw',
         'taf': 'false',
-        'hours': '1',
+        'hours': '2',
     }
     response = requests.get('https://aviationweather.gov/api/data/metar', params=params, headers=headers)
     return response.content.decode('utf-8').strip()
@@ -91,7 +91,9 @@ while True:
     scroll(line2)
     display.refresh(minimum_frames_per_second=0)
     if time.monotonic() % 60 < 1:  
-        line2.text = get_metar() 
         timeNow.text = get_current_time() 
+        display.refresh(minimum_frames_per_second=0)
+    if time.monotonic() % 500 < 1:  
+        line2.text = get_metar() 
         display.refresh(minimum_frames_per_second=0)
     
